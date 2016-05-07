@@ -81,6 +81,7 @@ class GenerateSkeletonCommand extends Command
     {
         if($msg = $this->validKeyConfigurationValue("app_path") !== true) {
             $this->error($msg);
+            return;
         }
         
         $this->warn('Creating "abstract entity"...');
@@ -99,6 +100,7 @@ class GenerateSkeletonCommand extends Command
     {
         if(($msg = $this->validKeyConfigurationValue("app_path")) !== true) {
             $this->error($msg);
+            return;
         }
 
         $this->warn('Creating "abstract entity"...');
@@ -120,10 +122,12 @@ class GenerateSkeletonCommand extends Command
     {
         if(($msg = $this->validKeyConfigurationValue("app_path")) !== true) {
             $this->error($msg);
+            return;
         }
 
         if(($msg = $this->validKeyConfigurationValue("folder_permission")) !== true) {
             $this->error($msg);
+            return;
         }
 
         $this->warn("Creating \"data\" folder structure...");
