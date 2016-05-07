@@ -4,6 +4,10 @@
     "keywords": ["laravel", "skeleton", "generate", "command"],
     "license": "APACHE LICENSE, VERSION 2.0",
     "type": "package",
+    "support": {
+        "issues": "https://github.com/alejojperez/laravel-skeleton-generator/issues",
+        "source": "https://github.com/alejojperez/laravel-skeleton-generator"
+    },
     "authors": [
         {
             "name": "Alejandro Perez",
@@ -18,5 +22,6 @@
         "psr-4": {
             "LaravelSkeletonGenerator\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

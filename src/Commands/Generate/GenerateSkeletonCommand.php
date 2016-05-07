@@ -32,7 +32,7 @@ class GenerateSkeletonCommand extends Command
     /**
      * @var string
      */
-    private $stubsPath = __DIR__."/stubs";
+    private $stubsPath;
 
     /**
      * Create a new command instance.
@@ -43,6 +43,7 @@ class GenerateSkeletonCommand extends Command
     {
         parent::__construct();
         $this->config = $config;
+        $this->stubsPath = __DIR__."/stubs";
     }
 
     /**
@@ -63,14 +64,26 @@ class GenerateSkeletonCommand extends Command
      */
     protected function createAbstractDataClasses()
     {
+        $this->createAbstractEntity();
+    }
+
+    /**
+     * @return void
+     */
+    protected function createAbstractEntity()
+    {
         if($msg = $this->validKeyConfigurationValue("app_path") !== true) {
             $this->error($msg);
         }
+        
+        $this->warn('Creating "abstract entity"...');
 
-        $path = $this->config["app_path"]."/Data/Entities/AbstractEntity.php";
-        $contents = file_get_contents($this->stubsPath."/abstract-entity.stub");
+        $abstractEntityPath = $this->config["app_path"]."/Data/Entities/AbstractEntity.php";
+        $abstractEntityContents = file_get_contents($this->stubsPath."/abstract-entity.stub");
 
-        file_put_contents($path, $contents);
+        file_put_contents($abstractEntityPath, $abstractEntityContents);
+
+        $this->info('Created "abstract entity".');
     }
 
     /**
