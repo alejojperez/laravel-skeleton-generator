@@ -44,7 +44,7 @@ class GenerateSkeletonCommand extends Command
         $currentDirectory = __DIR__;
 
         parent::__construct();
-        $this->config = count($config) > 0 ? $config : include $currentDirectory."../config.php";
+        $this->config = count($config) > 0 ? $config : include $currentDirectory."/../config.php";
         $this->stubsPath = $currentDirectory."/stubs";
     }
 
