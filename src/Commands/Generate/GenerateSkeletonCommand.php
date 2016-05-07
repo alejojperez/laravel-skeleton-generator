@@ -95,16 +95,34 @@ class GenerateSkeletonCommand extends Command
         $this->info("Created \"abstract entity\".\n");
     }
 
+    protected function createAbstractRepositoryContract()
+    {
+        if(($msg = $this->validKeyConfigurationValue("app_path")) !== true) {
+            $this->error($msg);
+        }
+
+        $this->warn('Creating "abstract entity"...');
+
+        $abstractEntityPath = $this->config["app_path"]."/Data/Entities/AbstractEntity.php";
+
+        if($this->makeFile($abstractEntityPath)) {
+            $abstractEntityContents = file_get_contents($this->stubsPath."/abstract-entity.stub");
+            file_put_contents($abstractEntityPath, $abstractEntityContents);
+        }
+
+        $this->info("Created \"abstract entity\".\n");
+    }
+
     /**
      * @return void
      */
     protected function createDataFolderStructure()
     {
-        if($msg = $this->validKeyConfigurationValue("app_path") !== true) {
+        if(($msg = $this->validKeyConfigurationValue("app_path")) !== true) {
             $this->error($msg);
         }
 
-        if($msg = $this->validKeyConfigurationValue("folder_permission") !== true) {
+        if(($msg = $this->validKeyConfigurationValue("folder_permission")) !== true) {
             $this->error($msg);
         }
 
