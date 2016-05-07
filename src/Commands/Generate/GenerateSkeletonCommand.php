@@ -62,6 +62,7 @@ class GenerateSkeletonCommand extends Command
 
         $this->createDataFolderStructure();
         $this->createAbstractDataClasses();
+        $this->createUserEntity();
     }
 
     #region Helpers
@@ -168,6 +169,42 @@ class GenerateSkeletonCommand extends Command
         $this->makeDirectory($this->config["app_path"]."/Data/Transformers");
 
         $this->info("Created \"data\" folder structure.\n");
+    }
+
+    /**
+     * @return void
+     */
+    protected function createUserEntity()
+    {
+        if(($msg = $this->validKeyConfigurationValue("app_path")) !== true) {
+            $this->error($msg);
+            exit;
+        }
+
+        $this->warn("Creating \"user entity\"...");
+
+        $filePath = $this->config["app_path"]."/Data/Entities/User.php";
+
+        if($this->makeFile($filePath)) {
+            $fileContents = file_get_contents($this->stubsPath."/user-entity.stub");
+            file_put_contents($filePath, $fileContents);
+        }
+        app(\Illuminate\Contracts\Console\Kernel::class)->call('generate:repository-contract', ['name' => 'UsersRepository']);
+        app(\Illuminate\Contracts\Console\Kernel::class)->call('generate:repository', ['name' => 'UsersRepository']);
+        app(\Illuminate\Contracts\Console\Kernel::class)->call('generate:repository-service-provider', ['name' => 'UsersRepositoryServiceProvider']);
+
+        $this->info("Created \"user entity\".\n");
+
+        $filePath = $this->config["app_path"]."/User.php";
+
+        if(is_file($filePath)) {
+
+            $this->warn("Trying to remove laravel's default user model...");
+            if (unlink($filePath))
+                $this->info("Laravel's default user model deleted.\n");
+            else
+                $this->error("Unable to delete laravel's default user model.\n");
+        }
     }
 
     /**
