@@ -72,6 +72,7 @@ class GenerateSkeletonCommand extends Command
     protected function createAbstractDataClasses()
     {
         $this->createAbstractEntity();
+        $this->createAbstractRepositoryContract();
     }
 
     /**
@@ -81,38 +82,41 @@ class GenerateSkeletonCommand extends Command
     {
         if($msg = $this->validKeyConfigurationValue("app_path") !== true) {
             $this->error($msg);
-            return;
+            exit;
         }
         
-        $this->warn('Creating "abstract entity"...');
+        $this->warn("Creating \"abstract entity\"...");
 
-        $abstractEntityPath = $this->config["app_path"]."/Data/Entities/AbstractEntity.php";
+        $filePath = $this->config["app_path"]."/Data/Entities/AbstractEntity.php";
 
-        if($this->makeFile($abstractEntityPath)) {
-            $abstractEntityContents = file_get_contents($this->stubsPath."/abstract-entity.stub");
-            file_put_contents($abstractEntityPath, $abstractEntityContents);
+        if($this->makeFile($filePath)) {
+            $fileContents = file_get_contents($this->stubsPath."/abstract-entity.stub");
+            file_put_contents($filePath, $fileContents);
         }
 
         $this->info("Created \"abstract entity\".\n");
     }
 
+    /**
+     * @return void
+     */
     protected function createAbstractRepositoryContract()
     {
         if(($msg = $this->validKeyConfigurationValue("app_path")) !== true) {
             $this->error($msg);
-            return;
+            exit;
         }
 
-        $this->warn('Creating "abstract entity"...');
+        $this->warn("Creating \"abstract repository contract\"...");
 
-        $abstractEntityPath = $this->config["app_path"]."/Data/Entities/AbstractEntity.php";
+        $filePath = $this->config["app_path"]."/Data/Repositories/Contracts/AbstractRepository.php";
 
-        if($this->makeFile($abstractEntityPath)) {
-            $abstractEntityContents = file_get_contents($this->stubsPath."/abstract-entity.stub");
-            file_put_contents($abstractEntityPath, $abstractEntityContents);
+        if($this->makeFile($filePath)) {
+            $fileContents = file_get_contents($this->stubsPath."/abstract-repository-contract.stub");
+            file_put_contents($filePath, $fileContents);
         }
 
-        $this->info("Created \"abstract entity\".\n");
+        $this->info("Created \"abstract repository contract\".\n");
     }
 
     /**
@@ -122,12 +126,12 @@ class GenerateSkeletonCommand extends Command
     {
         if(($msg = $this->validKeyConfigurationValue("app_path")) !== true) {
             $this->error($msg);
-            return;
+            exit;
         }
 
         if(($msg = $this->validKeyConfigurationValue("folder_permission")) !== true) {
             $this->error($msg);
-            return;
+            exit;
         }
 
         $this->warn("Creating \"data\" folder structure...");
@@ -193,7 +197,7 @@ class GenerateSkeletonCommand extends Command
     protected function validKeyConfigurationValue($key)
     {
         if(!array_key_exists($key, $this->config) || empty($this->config[$key])) {
-            return "Missing \"$key\" key on the configuration file.";
+            return "\n\n Missing \"$key\" key on the configuration file.\n";
         }
 
         return true;
