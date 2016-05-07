@@ -2,9 +2,10 @@
 A package containing a set of commands to generate any kind of component
 
 ###Include the service provider
-config/app.php
 
 ```php
+// config/app.php
+
 return [
 
     "providers" => [
@@ -17,9 +18,10 @@ return [
 ```
 
 ###Include all the commands to the console
-app/Console/Kernel.php
 
 ```php
+// app/Console/Kernel.php
+
 ...
 protected $commands = [
     \LaravelSkeletonGenerator\Commands\Generate\GenerateSkeletonCommand::class,
