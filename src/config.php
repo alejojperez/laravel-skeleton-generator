@@ -6,7 +6,7 @@
 
 return [
     
-    "app_path" => __DIR__."/../app",
+    "app_path" => __DIR__."/../../../../app",
     "folder_permission" => 0777,
     
 ];
