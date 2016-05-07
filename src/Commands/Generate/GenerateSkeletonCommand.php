@@ -86,9 +86,11 @@ class GenerateSkeletonCommand extends Command
         $this->warn('Creating "abstract entity"...');
 
         $abstractEntityPath = $this->config["app_path"]."/Data/Entities/AbstractEntity.php";
-        $abstractEntityContents = file_get_contents($this->stubsPath."/abstract-entity.stub");
 
-        file_put_contents($abstractEntityPath, $abstractEntityContents);
+        if($this->makeFile($abstractEntityPath)) {
+            $abstractEntityContents = file_get_contents($this->stubsPath."/abstract-entity.stub");
+            file_put_contents($abstractEntityPath, $abstractEntityContents);
+        }
 
         $this->info("Created \"abstract entity\".\n");
     }
@@ -121,15 +123,44 @@ class GenerateSkeletonCommand extends Command
 
     /**
      * @param $path
+     * @param bool $throwWarning
+     * @return bool
      */
-    protected function makeDirectory($path)
+    protected function makeDirectory($path, $throwWarning = true)
     {
         if(!is_dir($path)) {
             mkdir($path, $this->config["folder_permission"]);
+
+            return true;
         } else {
-            $displayPath = explode("/app/", $path)[1];
-            
-            $this->warn("Folder \"app".DIRECTORY_SEPARATOR."$displayPath\" already exists.");
+            if($throwWarning) {
+                $displayPath = explode("/app/", $path)[1];
+                $this->warn("Folder \"app" . DIRECTORY_SEPARATOR . "$displayPath\" already exists.");
+            }
+
+            return false;
+        }
+    }
+
+    /**
+     * @param $path
+     * @param string $contents
+     * @param bool $throwWarning
+     * @return bool
+     */
+    protected function makeFile($path, $contents = "", $throwWarning = true)
+    {
+        if(!is_file($path)) {
+            file_put_contents($path, $contents);
+
+            return true;
+        } else {
+            if($throwWarning) {
+                $displayPath = explode("/app/", $path)[1];
+                $this->warn("File \"app" . DIRECTORY_SEPARATOR . "$displayPath\" already exists.");
+            }
+
+            return false;
         }
     }
 
