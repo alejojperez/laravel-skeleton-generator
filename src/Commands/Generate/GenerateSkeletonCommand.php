@@ -90,7 +90,7 @@ class GenerateSkeletonCommand extends Command
 
         file_put_contents($abstractEntityPath, $abstractEntityContents);
 
-        $this->info("Created \"abstract entity\".\n\n");
+        $this->info("Created \"abstract entity\".\n");
     }
 
     /**
@@ -116,7 +116,7 @@ class GenerateSkeletonCommand extends Command
         $this->makeDirectory($this->config["app_path"]."/Data/Repositories/Implementations");
         $this->makeDirectory($this->config["app_path"]."/Data/Transformers");
 
-        $this->info("Created \"data\" folder structure.\n\n");
+        $this->info("Created \"data\" folder structure.\n");
     }
 
     /**
@@ -127,7 +127,9 @@ class GenerateSkeletonCommand extends Command
         if(!is_dir($path)) {
             mkdir($path, $this->config["folder_permission"]);
         } else {
-            $this->warn("Folder \"$path\" already exists.");
+            $displayPath = explode("/app/", $path)[1];
+            
+            $this->warn("Folder \"app".DIRECTORY_SEPARATOR."$displayPath\" already exists.");
         }
     }
 
