@@ -108,15 +108,27 @@ class GenerateSkeletonCommand extends Command
 
         $this->warn("Creating \"data\" folder structure...");
 
-        mkdir($this->config["app_path"]."/Data", $this->config["folder_permission"]);
-        mkdir($this->config["app_path"]."/Data/Entities", $this->config["folder_permission"]);
-        mkdir($this->config["app_path"]."/Data/Repositories", $this->config["folder_permission"]);
-        mkdir($this->config["app_path"]."/Data/Repositories/Binders", $this->config["folder_permission"]);
-        mkdir($this->config["app_path"]."/Data/Repositories/Contracts", $this->config["folder_permission"]);
-        mkdir($this->config["app_path"]."/Data/Repositories/Implementations", $this->config["folder_permission"]);
-        mkdir($this->config["app_path"]."/Data/Transformers", $this->config["folder_permission"]);
+        $this->makeDirectory($this->config["app_path"]."/Data");
+        $this->makeDirectory($this->config["app_path"]."/Data/Entities");
+        $this->makeDirectory($this->config["app_path"]."/Data/Repositories");
+        $this->makeDirectory($this->config["app_path"]."/Data/Repositories/Binders");
+        $this->makeDirectory($this->config["app_path"]."/Data/Repositories/Contracts");
+        $this->makeDirectory($this->config["app_path"]."/Data/Repositories/Implementations");
+        $this->makeDirectory($this->config["app_path"]."/Data/Transformers");
 
         $this->info("Created \"data\" folder structure.\n\n");
+    }
+
+    /**
+     * @param $path
+     */
+    protected function makeDirectory($path)
+    {
+        if(!is_dir($path)) {
+            mkdir($path, $this->config["folder_permission"]);
+        } else {
+            $this->warn("Folder \"$path\" already exists.");
+        }
     }
 
     /**
