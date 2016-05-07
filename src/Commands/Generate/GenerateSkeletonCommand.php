@@ -60,6 +60,12 @@ class GenerateSkeletonCommand extends Command
             return;
         }
 
+        /**
+         * @TODO Create the default transformer and job
+         * @TODO Create a package for the command bus
+         * @TODO Create a package for the binders
+         */
+
         $this->createDataFolderStructure();
         $this->createAbstractDataClasses();
         $this->createUserEntity();
