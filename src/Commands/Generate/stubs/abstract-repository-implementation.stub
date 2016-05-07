@@ -1,0 +1,377 @@
+<?php
+
+namespace App\Data\Repositories\Implementations;
+
+use App\Data\Entities\AbstractEntity;
+use App\Data\Repositories\Contracts\AbstractRepository as RepositoryInterface;
+use App\Events\Event;
+
+abstract class AbstractRepository implements RepositoryInterface
+{
+    /**
+     * Create a new entity
+     * 
+     * @param array $data
+     * @param bool|true $fireEvent
+     * @return null|AbstractEntity
+     */
+    public function add(array $data, $fireEvent = false)
+    {
+        if( ! $entity = $this->getEntity()->create($data) )
+            return null;
+
+        if($fireEvent)
+        {
+            $eventName = $this->resolveEventName('Added');
+            $this->fire(new $eventName($entity));
+        }
+
+        return $entity;
+    }
+
+    /**
+     * Get all entities
+     * 
+     * @return mixed
+     */
+    function all()
+    {
+        return $this->getEntity()->all();
+    }
+
+    /**
+     * Delete an entity
+     * 
+     * @param array $data
+     * @param bool|true $fireEvent
+     * @return null|false|AbstractEntity
+     */
+    public function delete(array $data, $fireEvent = false)
+    {
+        $entity = $this->find(array_get($data, 'id'));
+
+        if( ! $entity )
+            return null;
+
+        if(! $entity->delete())
+            return false;
+
+        if($fireEvent)
+        {
+            $eventName = $this->resolveEventName('Deleted');
+            $this->fire(new $eventName($entity));
+        }
+
+        return $entity;
+    }
+
+    /**
+     * Delete multiple entities
+     *
+     * @param array $data
+     * @param bool $fireEvent
+     * @return array
+     */
+    public function deleteIn(array $data, $fireEvent = false)
+    {
+        $response = [];
+        
+        foreach(array_get($data, 'ids', []) as $id) {
+            $response[$id] = $this->delete(['id' => $id], $fireEvent);
+        }
+        
+        return $response;
+    }
+
+    /**
+     * Edit an entity
+     *
+     * @param array $data
+     * @param bool|true $fireEvent
+     * @return null|false|AbstractEntity
+     */
+    public function edit(array $data, $fireEvent = false)
+    {
+        $entity = $this->find(array_get($data, 'id'));
+
+        if( ! $entity )
+            return null;
+
+        $entity->fill($data);
+
+        if(! $entity->save())
+            return false;
+
+        if($fireEvent)
+        {
+            $eventName = $this->resolveEventName('EditedEvent');
+            $this->fire(new $eventName($entity));
+        }
+
+        return $entity;
+    }
+
+    /**
+     * Edit or create an entity
+     *
+     * @param array $search
+     * @param array $data
+     * @param bool|true $fireEvent
+     * @return null|false|AbstractEntity
+     */
+    public function editOrCreate(array $search, array $data, $fireEvent = false)
+    {
+        $where = [];
+
+        foreach($search as $column)
+            $where[$column] = $data[$column];
+
+        $eventAppend = 'EditedEvent';
+        $entity = $this->firstWhere($where);
+
+        if(empty($entity))
+        {
+            $eventAppend = 'AddedEvent';
+            $entity = $this->getEntity();
+        }
+
+        $entity->fill($data);
+
+        if(! $entity->save()) {
+            $response = '';
+
+            switch ($eventAppend)
+            {
+                case 'AddedEvent':
+                    $response = null;
+                    break;
+
+                case 'EditedEvent':
+                    $response = false;
+                    break;
+            }
+
+            return $response;
+        }
+
+        if($fireEvent)
+        {
+            $eventName = $this->resolveEventName($eventAppend);
+            $this->fire(new $eventName($entity));
+        }
+
+        return $entity;
+    }
+
+    /**
+     * Find entity by id
+     *
+     * @param $id
+     * @return null|AbstractEntity
+     */
+    public function find($id)
+    {
+        return $this->getEntity()->find($id);
+    }
+
+    /**
+     * Find entity by id, and if it does not exist, return a new entity object
+     *
+     * @param $id
+     * @return AbstractEntity
+     */
+    public function findOrNew($id)
+    {
+        return $this->getEntity()->findOrNew($id);
+    }
+
+    /**
+     * Fire an event
+     *
+     * @param Event $event
+     * @return void
+     */
+    public function fire(Event $event)
+    {
+        $dispatcher = app()->make('events');
+
+        $dispatcher->fire($event);
+    }
+
+    /**
+     * Find entity by a search criteria, and if it does not exist, return a new entity object
+     *
+     * @param $where
+     * @return AbstractEntity
+     */
+    public function firstOrNew($where)
+    {
+        return $this->getEntity()->firstOrNew($where);
+    }
+
+    /**
+     * Get the first result by a search criteria
+     *
+     * @param array $values
+     * @param bool|false $orderBy
+     * @return null|AbstractEntity
+     */
+    public function firstWhere(array $values, $orderBy = false)
+    {
+        return $this->where($values, $orderBy)->first();
+    }
+
+    /**
+     * Get the Repository Entity
+     *
+     * @return AbstractEntity
+     */
+    abstract function getEntity();
+
+    /**
+     * Try to get an entity object from a string, integer, or object
+     *
+     * @param $entity
+     * @return AbstractEntity
+     */
+    public function resolveEntityFromVariable($entity)
+    {
+        if(empty($entity))
+            throw new \InvalidArgumentException('Sorry, to resolve an entity we need a valid entity data.');
+        else
+        {
+            if(is_integer($entity) || is_string($entity))
+                $entity = $this->find($entity);
+
+            $entityType = get_class($this->getEntity());
+
+            if(! $entity instanceof $entityType)
+                throw new \InvalidArgumentException('Sorry, to resolve an entity we need a valid entity data.');
+        }
+
+        return $entity;
+    }
+
+    /**
+     * Set the Repository Entity
+     *
+     * @param $entity
+     * @return void|mixed
+     */
+    abstract function setEntity(AbstractEntity $entity);
+
+    /**
+     * Get entities by a search criteria
+     *
+     * @param array $values
+     * @param bool|false $orderBy
+     * @param bool|false $take
+     * @return mixed
+     */
+    public function where(array $values, $orderBy = false, $take = false)
+    {
+        $entity = $this->getEntity();
+
+        foreach($values as $field => $value)
+        {
+            if( ! is_array($value))
+                $value = array($value);
+
+            foreach($value as $val)
+                $entity = $entity->where($field, $val);
+        }
+
+        if($orderBy)
+            $this->addOrderByToEntity($entity, $orderBy);
+
+        if($take)
+            $entity = $entity->take($take);
+
+        return $entity->get();
+    }
+
+    /**
+     * Get entities by a search criteria using an "IN()" statement
+     * 
+     * @param array $values
+     * @param bool|false $orderBy
+     * @param bool|false $take
+     * @return mixed
+     */
+    public function whereIn(array $values, $orderBy = false, $take = false)
+    {
+        $entity = $this->getEntity();
+
+        foreach($values as $field => $value)
+        {
+            if( ! is_array($value))
+                $value = array($value);
+
+            $entity = $entity->whereIn($field, $value);
+        }
+
+        if($orderBy)
+            $entity = $entity->orderBy($orderBy[0], $orderBy[1]);
+
+        if($take)
+            $entity = $entity->take($take);
+
+        return $entity->get();
+    }
+
+    /**
+     * Get entities by a raw search criteria
+     * 
+     * @param string $whereRaw
+     * @param bool|false $orderBy
+     * @param bool|false $take
+     * @return mixed
+     */
+    public function whereRaw($whereRaw, $orderBy = false, $take = false)
+    {
+        $entity = $this->getEntity()->whereRaw($whereRaw);
+
+        if($orderBy)
+            $this->addOrderByToEntity($entity, $orderBy);
+
+        if($take)
+            $entity = $entity->take($take);
+
+        return $entity->get();
+    }
+
+    #region Helpers
+
+    /**
+     * @param $entity
+     * @param $value
+     */
+    protected function addOrderByToEntity($entity, $value)
+    {
+        if( ! is_array($value[0]) )
+            $value[0] = array($value[0]);
+
+        if( ! is_array($value[1]) )
+            $value[1] = array($value[1]);
+
+        foreach ($value[0] as $index => $field) {
+            $entity->orderBy($field, $value[1][ $index ]);
+        }
+    }
+
+    /**
+     * @param $append
+     * @return string
+     */
+    protected function resolveEventName($append)
+    {
+        $reflection = new \ReflectionClass( $this->getEntity() );
+        $entityName = $reflection->getShortName();
+        $entityPlural = str_plural($entityName);
+
+        return "App\\Events\\".$entityPlural."\\".$entityName.$append;
+    }
+
+    #endregion
+
+}

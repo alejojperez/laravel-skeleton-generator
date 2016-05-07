@@ -16,6 +16,7 @@
     ],
     "require": {
         "illuminate/console": "^5.2",
+        "illuminate/support": "^5.2",
         "venturecraft/revisionable": "^1.23"
     },
     "autoload": {

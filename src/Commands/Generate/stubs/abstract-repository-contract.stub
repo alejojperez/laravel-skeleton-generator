@@ -8,110 +8,145 @@ use App\Events\Event;
 interface AbstractRepository
 {
     /**
+     * Create a new entity
+     *
      * @param array $data
-     * @param bool $fireEvent
-     * @return mixed
+     * @param bool|true $fireEvent
+     * @return null|AbstractEntity
      */
     function add(array $data, $fireEvent = false);
 
     /**
+     * Get all entities
+     *
      * @return mixed
      */
     function all();
 
     /**
+     * Delete an entity
+     *
      * @param array $data
-     * @param bool|false $fireEvent
-     * @return mixed
+     * @param bool|true $fireEvent
+     * @return null|false|AbstractEntity
      */
     function delete(array $data, $fireEvent = false);
 
     /**
+     * Delete multiple entities
+     *
      * @param array $data
-     * @return mixed
+     * @param bool $fireEvent
+     * @return array
      */
-    function deleteIn(array $data);
+    function deleteIn(array $data, $fireEvent = false);
 
     /**
+     * Edit an entity
+     *
      * @param array $data
-     * @param bool|false $fireEvent
-     * @return mixed
+     * @param bool|true $fireEvent
+     * @return null|false|AbstractEntity
      */
     function edit(array $data, $fireEvent = false);
 
     /**
+     * Edit or create an entity
+     *
      * @param array $search
      * @param array $data
      * @param bool|true $fireEvent
-     * @return mixed
+     * @return null|false|AbstractEntity
      */
     function editOrCreate(array $search, array $data, $fireEvent = false);
 
     /**
+     * Find entity by id
+     *
      * @param $id
-     * @return mixed
+     * @return null|AbstractEntity
      */
     function find($id);
 
     /**
+     * Find entity by id, and if it does not exist, return a new entity object
+     *
      * @param $id
-     * @return mixed
+     * @return AbstractEntity
      */
     function findOrNew($id);
 
     /**
+     * Fire an event
+     *
      * @param Event $event
-     * @return mixed
+     * @return void
      */
     function fire(Event $event);
 
     /**
+     * Find entity by a search criteria, and if it does not exist, return a new entity object
+     *
      * @param $where
-     * @return mixed
+     * @return AbstractEntity
      */
     function firstOrNew($where);
 
     /**
-     * @param array $value
+     * Get the first result by a search criteria
+     *
+     * @param array $values
      * @param bool|false $orderBy
-     * @return mixed
+     * @return null|AbstractEntity
      */
-    function firstWhere(array $value, $orderBy = false);
+    function firstWhere(array $values, $orderBy = false);
 
     /**
+     * Get the Repository Entity
+     *
      * @return AbstractEntity
      */
     function getEntity();
 
     /**
-     * @param $entityData
-     * @return mixed
+     * Try to get an entity object from a string, integer, or object
+     *
+     * @param $entity
+     * @return AbstractEntity
      */
-    function resolveEntityFromVariable($entityData);
+    function resolveEntityFromVariable($entity);
 
     /**
-     * @param AbstractEntity $entity
-     * @return mixed
+     * Set the Repository Entity
+     *
+     * @param $entity
+     * @return void|mixed
      */
     function setEntity(AbstractEntity $entity);
 
     /**
+     * Get entities by a search criteria
+     *
      * @param array $values
-     * @param bool $orderBy
-     * @param bool $take
+     * @param bool|false $orderBy
+     * @param bool|false $take
      * @return mixed
      */
     function where(array $values, $orderBy = false, $take = false);
 
     /**
+     * Get entities by a search criteria using an "IN()" statement
+     *
      * @param array $values
-     * @param bool $orderBy
-     * @param bool $take
+     * @param bool|false $orderBy
+     * @param bool|false $take
      * @return mixed
      */
     function whereIn(array $values, $orderBy = false, $take = false);
 
     /**
+     * Get entities by a raw search criteria
+     *
      * @param string $whereRaw
      * @param bool|false $orderBy
      * @param bool|false $take
