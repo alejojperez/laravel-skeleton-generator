@@ -135,7 +135,7 @@ class GenerateSkeletonCommand extends Command
         $filePath = $this->config["app_path"]."/Data/Repositories/Implementations/AbstractRepository.php";
 
         if($this->makeFile($filePath)) {
-            $fileContents = file_get_contents($this->stubsPath."/abstract-repository-contract.stub");
+            $fileContents = file_get_contents($this->stubsPath."/abstract-repository-implementation.stub");
             file_put_contents($filePath, $fileContents);
         }
 
