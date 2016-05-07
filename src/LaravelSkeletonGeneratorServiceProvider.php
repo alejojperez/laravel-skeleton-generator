@@ -6,6 +6,7 @@
 
 namespace LaravelSkeletonGenerator;
 
+use Illuminate\Support\ServiceProvider;
 use LaravelSkeletonGenerator\Commands\Generate\GenerateSkeletonCommand;
 
 class LaravelSkeletonGeneratorServiceProvider extends ServiceProvider
