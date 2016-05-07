@@ -55,7 +55,7 @@ class GenerateSkeletonCommand extends Command
     public function handle()
     {
         $ask = "Remember that this command should be called only one time when the project is created.\n" .
-            "Are you sure you wish to continue? [y|N]";
+            " Are you sure you wish to continue? [y|N]";
         if (!$this->confirm($ask)) {
             return;
         }
@@ -90,7 +90,7 @@ class GenerateSkeletonCommand extends Command
 
         file_put_contents($abstractEntityPath, $abstractEntityContents);
 
-        $this->info('Created "abstract entity".');
+        $this->info("Created \"abstract entity\".\n\n");
     }
 
     /**
@@ -106,7 +106,7 @@ class GenerateSkeletonCommand extends Command
             $this->error($msg);
         }
 
-        $this->warn('Creating "data" folder structure...');
+        $this->warn("Creating \"data\" folder structure...");
 
         mkdir($this->config["app_path"]."/Data", $this->config["folder_permission"]);
         mkdir($this->config["app_path"]."/Data/Entities", $this->config["folder_permission"]);
@@ -116,7 +116,7 @@ class GenerateSkeletonCommand extends Command
         mkdir($this->config["app_path"]."/Data/Repositories/Implementations", $this->config["folder_permission"]);
         mkdir($this->config["app_path"]."/Data/Transformers", $this->config["folder_permission"]);
 
-        $this->info('Created "data" folder structure.');
+        $this->info("Created \"data\" folder structure.\n\n");
     }
 
     /**
