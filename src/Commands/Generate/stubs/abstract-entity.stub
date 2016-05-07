@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Data\Entities;
+
+use Illuminate\Database\Eloquent\Model;
+use Venturecraft\Revisionable\RevisionableTrait;
+
+class AbstractEntity extends Model
+{
+	use RevisionableTrait;
+
+	protected $revisionCreationsEnabled = true;
+
+	/**
+	 * Override parent toJson behavior to return an empty json object
+	 * instead of an empty array when the model attributes are empty
+	 *
+	 * @param int $options
+	 * @return string
+	 */
+	public function toJson($options = 0) {
+
+		$jsonSerialized = $this->jsonSerialize();
+
+		if (is_array($jsonSerialized) && count($jsonSerialized) == 0) {
+			return json_encode($jsonSerialized, JSON_FORCE_OBJECT);
+		}
+
+		$encodedJson = parent::toJson($options);
+		$replace = '\\'.'\n';
+		$search = ['\n', '\r', '\n\r'];
+
+		return str_replace($search, $replace, $encodedJson);
+	}
+}

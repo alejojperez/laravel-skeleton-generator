@@ -1,0 +1,20 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Data\Entities\DummyEntityClass;
+
+class DummyClass extends TransformerAbstract
+{
+    /**
+     * Turn this item object into a generic array
+     *
+     * @param DummyEntityClass $entity
+     *
+     * @return array
+     */
+    public function transform(DummyEntityClass $entity)
+    {
+        return [// DummyArrayReturn];
+    }
+}

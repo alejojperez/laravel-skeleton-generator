@@ -1,0 +1,48 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Data\Entities\AbstractEntity;
+use App\Data\Entities\DummyEntityClass;
+use App\Data\Repositories\Contracts\DummyClass as RepositoryInterface;
+
+class DummyClass extends AbstractRepository implements RepositoryInterface
+{
+    #region Constructor And Fields
+
+    /**
+     * @var DummyEntityClass
+     */
+    private $entity;
+
+    /**
+     * @param DummyEntityClass $entity
+     */
+    public function __construct(DummyEntityClass $entity)
+    {
+        $this->entity = $entity;
+    }
+
+    #endregion
+
+    #region RepositoryInterface">
+
+    /**
+     * @return AbstractEntity
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * @param AbstractEntity $entity
+     * @return void
+     */
+    public function setEntity(AbstractEntity $entity)
+    {
+        $this->entity = $entity;
+    }
+
+    #endregion
+}

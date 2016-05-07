@@ -1,0 +1,22 @@
+{
+    "name": "alejojperez/laravel-skeleton-generator",
+    "description": "A package containing a set of commands to generate any kind of component",
+    "keywords": ["laravel", "skeleton", "generate", "command"],
+    "license": "APACHE LICENSE, VERSION 2.0",
+    "type": "package",
+    "authors": [
+        {
+            "name": "Alejandro Perez",
+            "email": "alejandro.perez.developer@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/console": "^5.2",
+        "venturecraft/revisionable": "^1.23"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelSkeletonGenerator\\": "src/"
+        }
+    }
+}

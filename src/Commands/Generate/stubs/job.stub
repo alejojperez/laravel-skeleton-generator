@@ -1,0 +1,44 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Data\Repositories\Contracts\DummyRepository;
+use App\Jobs\Job;
+
+class DummyClass extends Job
+{
+    #region Constructor and Properties
+
+    /**
+     * @var DummyRepository
+     */
+    private $repository;
+    /**
+     * @var array
+     */
+    public $data;
+
+    /**
+     * Create a new job instance.
+     *
+     * @param array $data
+     * @param DummyRepository $repository
+     */
+    public function __construct(array $data, DummyRepository $repository)
+    {
+        $this->repository = $repository;
+        $this->data = $data;
+    }
+
+    #endregion
+
+    /**
+     * Execute the job.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        // Handle Logic
+    }
+}
