@@ -54,6 +54,12 @@ class GenerateSkeletonCommand extends Command
      */
     public function handle()
     {
+        $ask = "Remember that this command should be called only one time when the project is created.\n" .
+            "Are you sure you wish to continue? [y|N]";
+        if (!$this->confirm($ask)) {
+            return;
+        }
+
         $this->createDataFolderStructure();
         $this->createAbstractDataClasses();
     }
