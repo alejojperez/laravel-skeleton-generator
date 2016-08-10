@@ -7,10 +7,22 @@
 namespace AlejoJPerez\LaravelSkeletonGenerator;
 
 use Illuminate\Support\ServiceProvider;
-use LaravelSkeletonGenerator\Commands\Generate\GenerateSkeletonCommand;
+use AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateSkeletonCommand;
 
 class LaravelSkeletonGeneratorServiceProvider extends ServiceProvider
 {
+    /**
+     * Perform post-registration booting of services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__."/config.php" => config_path('alejojperez-skeleton-generator.php'),
+        ], "config");
+    }
+
     /**
      * Register bindings in the container.
      *
@@ -20,7 +32,7 @@ class LaravelSkeletonGeneratorServiceProvider extends ServiceProvider
     {
         $this->app->bind(GenerateSkeletonCommand::class, function ($app) {
 
-            $configPath = \Config::has('laravel-skeleton-generator') ? base_path("config/laravel-skeleton-generator.php") : __DIR__."/config.php";
+            $configPath = \Config::has('alejojperez-skeleton-generator') ? base_path("config/alejojperez-skeleton-generator.php") : __DIR__."/config.php";
 
             $config = include $configPath;
 

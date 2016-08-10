@@ -17,6 +17,11 @@ return [
 ];
 ```
 
+###Publish the package configuration (optional)
+```bash
+php artisan vendor:publish --provider="AlejoJPerez\LaravelSkeletonGenerator\LaravelSkeletonGeneratorServiceProvider" --tag="config"
+```
+
 ###Include all the commands to the console
 
 ```php
