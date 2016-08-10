@@ -4,7 +4,7 @@
  * github page: https://github.com/alejojperez
  */
 
-namespace LaravelSkeletonGenerator\Commands\Generate;
+namespace AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate;
 
 use Illuminate\Console\Command;
 
@@ -15,7 +15,7 @@ class GenerateSkeletonCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:skeleton';
+    protected $signature = 'alejojperez-generate:skeleton';
 
     /**
      * The console command description.

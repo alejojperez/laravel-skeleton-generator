@@ -4,7 +4,7 @@
  * github page: https://github.com/alejojperez
  */
 
-namespace LaravelSkeletonGenerator\Commands\Generate;
+namespace AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate;
 
 use Illuminate\Console\GeneratorCommand;
 
@@ -15,7 +15,7 @@ class GenerateTransformerCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = "generate:transformer {name}";
+    protected $signature = "alejojperez-generate:transformer {name}";
 
     /**
      * The console command description.

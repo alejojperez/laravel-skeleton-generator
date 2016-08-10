@@ -4,7 +4,7 @@
  * github page: https://github.com/alejojperez
  */
 
-namespace LaravelSkeletonGenerator\Commands\Generate;
+namespace AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate;
 
 use Illuminate\Console\GeneratorCommand;
 
@@ -15,7 +15,7 @@ class GenerateRepositoryContractCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'generate:repository-contract';
+    protected $name = 'alejojperez-generate:repository-contract';
 
     /**
      * The console command description.

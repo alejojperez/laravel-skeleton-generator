@@ -4,7 +4,7 @@
  * github page: https://github.com/alejojperez
  */
 
-namespace LaravelSkeletonGenerator\Commands\Generate;
+namespace AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate;
 
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
@@ -16,7 +16,7 @@ class GenerateJobValidatorCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = "generate:job-validator {name} {--type=}";
+    protected $name = "alejojperez-generate:job-validator {name} {--type=}";
 
     /**
      * The console command description.

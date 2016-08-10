@@ -4,7 +4,7 @@
  * github page: https://github.com/alejojperez
  */
 
-namespace LaravelSkeletonGenerator;
+namespace AlejoJPerez\LaravelSkeletonGenerator;
 
 use Illuminate\Support\ServiceProvider;
 use LaravelSkeletonGenerator\Commands\Generate\GenerateSkeletonCommand;

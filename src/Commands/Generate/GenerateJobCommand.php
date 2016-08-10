@@ -4,7 +4,7 @@
  * github page: https://github.com/alejojperez
  */
 
-namespace LaravelSkeletonGenerator\Commands\Generate;
+namespace AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate;
 
 use Illuminate\Console\GeneratorCommand;
 
@@ -15,7 +15,7 @@ class GenerateJobCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = "generate:job {name} {--validator} {--type=}";
+    protected $signature = "alejojperez-generate:job {name} {--validator} {--type=}";
 
     /**
      * The console command description.

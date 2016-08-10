@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LaravelSkeletonGenerator\\": "src/"
+            "AlejoJPerez\\LaravelSkeletonGenerator\\": "src/"
         }
     },
     "minimum-stability": "dev"

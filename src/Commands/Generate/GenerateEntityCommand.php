@@ -4,7 +4,7 @@
  * github page: https://github.com/alejojperez
  */
 
-namespace LaravelSkeletonGenerator\Commands\Generate;
+namespace AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate;
 
 use Illuminate\Console\GeneratorCommand;
 
@@ -15,7 +15,7 @@ class GenerateEntityCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = "generate:entity
+    protected $signature = "alejojperez-generate:entity
                             {name : The entity name; if there are not options specified, all the components will be created}
                             {--repository-contract : Create the entity repository contract}
                             {--repository : Create the entity repository implementation}

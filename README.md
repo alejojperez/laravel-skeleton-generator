@@ -10,7 +10,7 @@ return [
 
     "providers" => [
         ...
-        LaravelSkeletonGenerator\LaravelSkeletonGeneratorServiceProvider::class,
+        AlejoJPerez\LaravelSkeletonGenerator\LaravelSkeletonGeneratorServiceProvider::class,
         ...
     ]
 
@@ -24,14 +24,14 @@ return [
 
 ...
 protected $commands = [
-    \LaravelSkeletonGenerator\Commands\Generate\GenerateSkeletonCommand::class,
-    \LaravelSkeletonGenerator\Commands\Generate\GenerateEntityCommand::class,
-    \LaravelSkeletonGenerator\Commands\Generate\GenerateJobCommand::class,
-    \LaravelSkeletonGenerator\Commands\Generate\GenerateJobValidatorCommand::class,
-    \LaravelSkeletonGenerator\Commands\Generate\GenerateRepositoryCommand::class,
-    \LaravelSkeletonGenerator\Commands\Generate\GenerateRepositoryContractCommand::class,
-    \LaravelSkeletonGenerator\Commands\Generate\GenerateRepositoryServiceProviderCommand::class,
-    \LaravelSkeletonGenerator\Commands\Generate\GenerateTransformerCommand::class,
+    \AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateSkeletonCommand::class,
+    \AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateEntityCommand::class,
+    \AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateJobCommand::class,
+    \AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateJobValidatorCommand::class,
+    \AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateRepositoryCommand::class,
+    \AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateRepositoryContractCommand::class,
+    \AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateRepositoryServiceProviderCommand::class,
+    \AlejoJPerez\LaravelSkeletonGenerator\Commands\Generate\GenerateTransformerCommand::class,
 ];
 ...
 ```
