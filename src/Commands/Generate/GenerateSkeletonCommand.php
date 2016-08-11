@@ -195,9 +195,9 @@ class GenerateSkeletonCommand extends Command
             $fileContents = file_get_contents($this->stubsPath."/user-entity.stub");
             file_put_contents($filePath, $fileContents);
         }
-        app(\Illuminate\Contracts\Console\Kernel::class)->call('generate:repository-contract', ['name' => 'UsersRepository']);
-        app(\Illuminate\Contracts\Console\Kernel::class)->call('generate:repository', ['name' => 'UsersRepository']);
-        app(\Illuminate\Contracts\Console\Kernel::class)->call('generate:repository-service-provider', ['name' => 'UsersRepositoryServiceProvider']);
+        app(\Illuminate\Contracts\Console\Kernel::class)->call('alejojperez-generate:repository-contract', ['name' => 'UsersRepository']);
+        app(\Illuminate\Contracts\Console\Kernel::class)->call('alejojperez-generate:repository', ['name' => 'UsersRepository']);
+        app(\Illuminate\Contracts\Console\Kernel::class)->call('alejojperez-generate:repository-service-provider', ['name' => 'UsersRepositoryServiceProvider']);
 
         $this->info("Created \"user entity\".\n");
 

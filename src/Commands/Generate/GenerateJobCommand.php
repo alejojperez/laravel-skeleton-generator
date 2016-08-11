@@ -122,7 +122,7 @@ class GenerateJobCommand extends GeneratorCommand
         if(!empty($this->option('type')))
             $arguments['--type'] = $this->option('type');
         
-        app('Illuminate\Contracts\Console\Kernel')->call('generate:job-validator', $arguments);
+        app('Illuminate\Contracts\Console\Kernel')->call('alejojperez-generate:job-validator', $arguments);
     }
 
     /**

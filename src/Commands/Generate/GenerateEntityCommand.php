@@ -138,7 +138,7 @@ class GenerateEntityCommand extends GeneratorCommand
      */
     protected function callCreateRepositoryContract()
     {
-        app('Illuminate\Contracts\Console\Kernel')->call('generate:repository-contract', ['name' => $this->getRepositoryName()] );
+        app('Illuminate\Contracts\Console\Kernel')->call('alejojperez-generate:repository-contract', ['name' => $this->getRepositoryName()] );
     }
 
     /**
@@ -146,7 +146,7 @@ class GenerateEntityCommand extends GeneratorCommand
      */
     protected function callCreateRepository()
     {
-        app('Illuminate\Contracts\Console\Kernel')->call('generate:repository', ['name' => $this->getRepositoryName()] );
+        app('Illuminate\Contracts\Console\Kernel')->call('alejojperez-generate:repository', ['name' => $this->getRepositoryName()] );
     }
 
     /**
@@ -154,7 +154,7 @@ class GenerateEntityCommand extends GeneratorCommand
      */
     protected function callCreateRepositoryServiceProvider()
     {
-        app('Illuminate\Contracts\Console\Kernel')->call('generate:repository-service-provider', ['name' => $this->getRepositoryServiceProviderName()] );
+        app('Illuminate\Contracts\Console\Kernel')->call('alejojperez-generate:repository-service-provider', ['name' => $this->getRepositoryServiceProviderName()] );
     }
 
     /**
@@ -162,6 +162,6 @@ class GenerateEntityCommand extends GeneratorCommand
      */
     protected function callCreateTransformer()
     {
-        app('Illuminate\Contracts\Console\Kernel')->call('generate:transformer', ['name' => $this->getTransformerName()] );
+        app('Illuminate\Contracts\Console\Kernel')->call('alejojperez-generate:transformer', ['name' => $this->getTransformerName()] );
     }
 }
