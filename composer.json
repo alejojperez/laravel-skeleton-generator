@@ -2,7 +2,7 @@
     "name": "alejojperez/laravel-skeleton-generator",
     "description": "A package containing a set of commands to generate any kind of component",
     "keywords": ["laravel", "skeleton", "generate", "command"],
-    "license": "APACHE LICENSE, VERSION 2.0",
+    "license": "APACHE LICENSE - VERSION 2.0",
     "type": "package",
     "support": {
         "issues": "https://github.com/alejojperez/laravel-skeleton-generator/issues",
