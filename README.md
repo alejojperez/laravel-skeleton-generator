@@ -1,7 +1,7 @@
 # laravel-skeleton-generator
 A package containing a set of commands to generate any kind of component
 
-###Include the service provider
+### Include the service provider
 
 ```php
 // config/app.php
@@ -17,12 +17,12 @@ return [
 ];
 ```
 
-###Publish the package configuration (optional)
+### Publish the package configuration (optional)
 ```bash
 php artisan vendor:publish --provider="AlejoJPerez\LaravelSkeletonGenerator\LaravelSkeletonGeneratorServiceProvider" --tag="config"
 ```
 
-###Include all the commands to the console
+### Include all the commands to the console
 
 ```php
 // app/Console/Kernel.php
